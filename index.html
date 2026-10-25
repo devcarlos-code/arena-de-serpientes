@@ -608,19 +608,19 @@
     function banner(t, s) { const b = $('ban'); b.innerHTML = t + '<small>' + s + '</small>'; b.style.opacity = 1; clearTimeout(banner.h); banner.h = setTimeout(() => b.style.opacity = 0, 2900) }
     function compose(n){
       const a=[],add=(k,c)=>{for(let i=0;i<c;i++)a.push(k)};
-      const base=Math.min(100,18+Math.floor(n*4));
+      const base=Math.min(180,28+Math.floor(n*8));
       if(n%5===0)add('boss',1);
-      add('basic',Math.max(7,Math.ceil(base*(n<2?.88:n<3?.72:.58))));
-      if(n>=2)add('spitter',Math.min(14,Math.ceil(base*.24)));
-      if(n>=3)add('dasher',Math.min(12,Math.ceil(base*.2)));
-      if(n>=4)add('armor',Math.min(10,Math.ceil(base*.16)));
-      if(n>=6)add('split',Math.min(10,Math.ceil(base*.14)));
+      add('basic',Math.max(12,Math.ceil(base*(n<2?.9:n<3?.74:.6))));
+      if(n>=2)add('spitter',Math.min(20,Math.ceil(base*.25)));
+      if(n>=3)add('dasher',Math.min(18,Math.ceil(base*.22)));
+      if(n>=4)add('armor',Math.min(14,Math.ceil(base*.17)));
+      if(n>=6)add('split',Math.min(14,Math.ceil(base*.15)));
       let regular=a.filter(k=>k!=='boss').length;while(regular<base){a.push('basic');regular++}
       for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a
     }
     const LN = { 1: ['DESPERTAR', 'Ratón o joystick para moverte · habilidades en botones · combos con dos toques'], 2: ['VENENO', 'Las serpientes verdes escupen veneno'], 3: ['EMBESTIDA', 'Las amarillas cargan en línea recta'], 4: ['CORAZA', 'Las azules resisten las mordidas: usa fuego'], 5: ['EL REY SERPIENTE', 'Jefe de tres fases'], 6: ['DIVISIÓN', 'Las moradas se parten al morir'] };
     function nextLevel() {
-      lvl++;stats.bestLevel=Math.max(stats.bestLevel,lvl);spawnQ=compose(lvl).map((k,i)=>({k,t:.45+i*.14}));
+      lvl++;stats.bestLevel=Math.max(stats.bestLevel,lvl);spawnQ=compose(lvl).map((k,i)=>({k,t:.25+i*.1}));
       const act=Math.floor((lvl-1)/5)+1,stage=['LLANURA CARMESÍ','CATACUMBAS DE CENIZA','PÁRAMO DE HUESO','TEMPLO ABISMAL','TRONO DEL REY'][(act-1)%5],boss=lvl%5===0;
       if(lvl>1){hp=Math.min(maxHp,hp+18);fury=Math.min(100,fury+18);cd.a=cd.s=cd.d=0}
       const t=LN[lvl]||[boss?'JEFE DEL ACTO':'OLEADA '+lvl,boss?'El Rey serpiente entra en combate':'Más enemigos y criaturas nuevas'];banner('ACTO '+act+' · NIVEL '+lvl+' — '+(boss?'JEFE: ':'')+stage,t[1]||t[0]); once('lv', 200, () => lvl % 5 === 0 ? SFX.roar() : SFX.horn());
