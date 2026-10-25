@@ -1,4 +1,4 @@
-const CACHE = 'arena-serpientes-v3';
+const CACHE = 'arena-serpientes-v4';
 const FILES = ['./', './index.html', './Arena%20de%20Serpientes.html', './manifest.webmanifest', './icon.svg'];
 self.addEventListener('install', event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES)).then(() => self.skipWaiting())));
 self.addEventListener('activate', event => event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('arena-serpientes-') && key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())));
